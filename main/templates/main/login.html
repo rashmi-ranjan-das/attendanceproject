@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4 mb-4">
+    <form class="text-center" action="{% url 'login' %}" method = 'post' enctype="multipart/form-data">
+        {% csrf_token %}
+        <p class="h4 mb-4">Sign in</p>
+        <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" name="collegeid" placeholder="College E-mail">
+        <input type="password" id="defaultRegisterFormPassword" class="form-control mb-4" name="password1" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
+        <button class="btn btn-info my-4 btn-block" type="submit">Sign In</button>
+        <p class="h6 mb-4">Not Registered yet ? Register <a href="{% url 'register' %}">here</a> </p>
+    </form>
+    <div class="container mt-3 text-center">
+        {% for message in messages %}
+        <h3>{{message}}</h3>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4 mb-4">
+    <form class="text-center" action="{% url 'registration' %}" method = 'post' enctype="multipart/form-data">
+        {% csrf_token %}
+        <p class="h4 mb-4">Sign up</p>
+        <div class="form-row mb-4">
+            <div class="col">
+                <input type="text" id="defaultRegisterFormFirstName" name="firstname" class="form-control" placeholder="First name">
+            </div>
+            <div class="col">
+                <input type="text" id="defaultRegisterFormLastName" name="lastname" class="form-control" placeholder="Last name">
+            </div>
+        </div>
+        <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" name="collegeid" placeholder="College E-mail">
+        <input type="password" id="defaultRegisterFormPassword" class="form-control mb-4" name="password1" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
+        <input type="password" id="defaultRegisterFormPassword" class="form-control mb-4" name="password2" placeholder="Confirm Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
+        Select image to upload:&nbsp;&nbsp;
+        <input type="file" name="photo" id="fileToUpload">
+        <button class="btn btn-info my-4 btn-block" type="submit">Register</button>
+        <p class="h6 mb-4">Already Registered ? Sign in <a href="{% url 'login' %}">here</a> </p>
+    </form>
+    <div class="container mt-3 text-center">
+        {% for message in messages %}
+        <h3>{{message}}</h3>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

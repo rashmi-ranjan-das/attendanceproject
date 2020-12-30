@@ -1,8 +1,23 @@
 body{
-    background-color: black;
-    color: greenyellow;
+    background-color: #f6f5f5;
+    color: black;
 }
 
+.inf-content{
+    border:1px solid #DDDDDD;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius:10px;
+    box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.3);
+}		
+
+h1,h3,h2{
+    color: rgb(144, 47, 255);
+}
+.content{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: large;
+}
 
 .navbar-nav{
     padding: 1.5%;

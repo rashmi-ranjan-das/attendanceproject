@@ -54,3 +54,6 @@ def profile(request, id):
 
 def logout(request):
     return redirect('/')
+
+def recognition(request):
+    pass

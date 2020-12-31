@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-4 mb-4">
+<div class="container mt-5 mb-5">
     <form class="text-center" action="{% url 'registration' %}" method = 'post' enctype="multipart/form-data">
         {% csrf_token %}
         <p class="h4 mb-4">Sign up</p>
@@ -27,5 +27,5 @@
         <h3>{{message}}</h3>
         {% endfor %}
     </div>
-</div>
+</div><br>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block content %}
+{% block content %}<br><br><br><br><br>
 <div class="container mt-4 mb-4">
     <form class="text-center" action="{% url 'login' %}" method = 'post' enctype="multipart/form-data">
         {% csrf_token %}
@@ -16,5 +16,5 @@
         <h3>{{message}}</h3>
         {% endfor %}
     </div>
-</div>
+</div><br><br><br><br><br>
 {% endblock %}

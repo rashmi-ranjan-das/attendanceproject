@@ -3,6 +3,7 @@ from .models import Student
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import auth
+import face_recognition
 # Create your views here.
 def home(request):
     return render(request, 'main/home.html')

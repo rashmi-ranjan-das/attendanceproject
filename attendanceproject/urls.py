@@ -27,6 +27,6 @@ urlpatterns = [
                   path('registration/', views.registration, name="registration"),
                   path('login/', views.login, name="login"),
                   path('logout/', views.logout, name="logout"),
-                  path('attendance/', views.attendance, name='attendance'),
+                  path('attendance/<int:id>', views.attendance, name='attendance'),
                   path('profile/Awukj234&profileid_3_kCJ/<str:id>', views.profile, name="profile")
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

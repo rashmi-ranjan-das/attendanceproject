@@ -9,8 +9,10 @@ from django.contrib import auth
 import os
 import face_recognition
 from datetime import datetime
+import csv
 
-def markattendance(name):
+def markattendance(name ,user):
+    full_name = user.firstname + ' ' + user.lastname
     print('attendance marked')
     workpath = os.path.dirname(os.path.abspath(__file__))  # Returns the Path your .py file is in
     c = os.path.join(workpath, 'admin.csv')
@@ -23,13 +25,15 @@ def markattendance(name):
             if name not in namelist:
                 now = datetime.now()
                 dt_string = now.strftime('%H:%M:%S')
-                f.writelines(f'\n{name},{dt_string}')
+                f.writelines(f'\n{full_name},{dt_string}')
+                return {'name': full_name, 'time': dt_string}
     return True
 
 
 
 # Create your views here.
-def attendance(request):
+def attendance(request ,id):
+    user = Student.objects.get(pk = id)
     path = 'media/images'
     images = os.listdir(path)
     imgs = []
@@ -39,7 +43,6 @@ def attendance(request):
         # print(img)
         imgs.append(img)
         names.append(cl.split('.')[0])
-        print(names)
     encodinglist = []
     for enc in imgs:
         enc = cv2.cvtColor(enc, cv2.COLOR_BGR2RGB)
@@ -47,12 +50,15 @@ def attendance(request):
         encodinglist.append(encode)
     capture = cv2.VideoCapture(0)
     while True:
-        success, image = capture.read()
-        # print(image)
-        imgs = cv2.resize(image, (0, 0), None, 0.25, 0.25)
-        imgs = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        facescurrent = face_recognition.face_locations(imgs)
-        faceenccurrent = face_recognition.face_encodings(imgs, facescurrent)
+        try:
+            success, image = capture.read()
+            # print(image)
+            imgs = cv2.resize(image, (0, 0), None, 0.25, 0.25)
+            imgs = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            facescurrent = face_recognition.face_locations(imgs)
+            faceenccurrent = face_recognition.face_encodings(imgs, facescurrent)
+        except:
+            return render(request, 'main/confirm.html')
 
         for encode, faceLoc in zip(faceenccurrent, facescurrent):
             compare = face_recognition.compare_faces(encodinglist, encode)
@@ -66,8 +72,8 @@ def attendance(request):
                 cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.rectangle(img, (x1, y2 - 35), (x2, y2), (0, 255, 0), cv2.FILLED)
                 cv2.putText(img, name, (x1 + 6, y2 - 6), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
-                value=markattendance(name)
-                return render(request,'main/confirm.html')
+                value=markattendance(name ,user)
+                return render(request,'main/confirm.html', value)
 def home(request):
     return render(request, 'main/home.html')
 

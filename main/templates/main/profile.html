@@ -64,7 +64,7 @@
                 </tbody>
             </table>
             </div>
-            <form method="POST" action="{% url 'attendance' %}" enctype="multipart/form-data">
+            <form method="POST" action="{% url 'attendance' user.id %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <button type="submit" class="btn" style ="background: rgb(223,34,117);
                 background: linear-gradient(108deg, rgba(223,34,117,1) 0%, rgba(155,26,142,1) 34%, rgba(93,19,166,1) 100%); color: white">Give Attendance</button>
